@@ -4,7 +4,7 @@
  */
 
 -- 01. HR.employees 테이블의 모든 데이터 조회하세요.(107건)
-SELECT SELECT * -- asterik -> all로 발음. 모든컬럼을 다 보여라.
+SELECT * -- asterik -> all로 발음. 모든컬럼을 다 보여라.
   FROM employees;
 
 -- 02. HR.employees 중 employee_id, first_name, last_name, email, hire_date를 출력하라.(107행)
@@ -30,7 +30,7 @@ SELECT first_name || ' ' || last_name AS "full_name"
        , phone_number
   FROM employees;
 
-SELECT FIRST_name || last_name || phone_number
+SELECT first_name || last_name || phone_number
   FROM employees;
 
 -- 06. employees 테이블 직원들 정보를 아래와 나오도록 출력하시오.(107행)
