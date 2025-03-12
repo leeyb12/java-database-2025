@@ -18,7 +18,7 @@ SELECT employee_id AS "직업번호"
          , last_name AS "성"
          , email AS "이메일"
          , hire_date AS "입사일자"
-  FROM employees; 
+FROM employees; 
 
 -- 04. employees에서 job_id가 중복되지 않게 출력하시오.(행)
 -- distinct - 중복제거, all - 전부다
