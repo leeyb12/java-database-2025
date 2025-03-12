@@ -4,7 +4,7 @@
 /* 문자(열)함수 */
 
 -- INITCAP()
-SELECT initcap('hello oracle') AS "result" 
+SELECT INITCAP('hello oracle') AS "result" 
   FROM dual;  -- 실제하지 않는 테이블(Oracle만!)
  
 -- LOWER() 모든글자 소문자, UPPER() 모든글자 대문자로 
