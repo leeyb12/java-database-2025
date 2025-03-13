@@ -93,7 +93,7 @@ Java 개발자 과정 Database 리포지토리
     - GROUP BY
     - HAVING
     - ROLLUP
-    - RANK
+    - RANK, DENSE_RANK, ROW_NUMBER 
 
 - 데이터베이스 타입형
     - **CHAR(n)** - 고정형 문자열, 최대 2000바이트
@@ -113,6 +113,7 @@ Java 개발자 과정 Database 리포지토리
 
 ## 3일차
 - JOIN 
+    - ERD(Entity Relationship Diagram) - 개체 관계 다이어그램
     - 카티션곱
     - 내부조인, 외부조인
 - DDL 
