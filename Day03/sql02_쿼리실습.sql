@@ -1,20 +1,12 @@
--- 
+-- 1장 SELECT 명령을 이용하여 데이터를 조회합니다
+
+
 -- 1. 모든 컬럼 조회하기
 
 SELECT * FROM emp ; 
 
 SELECT * 
   FROM emp ;
-
-SELECT * fr  -- FROM 키워드 줄을 바꿔서 에러 남!
-  om emp;
-
-SELECT *   -- 테이블 이름 줄을 바꿔서 에러 남!  
-  FROM em 
-  p;
-
-SELECT em   -- 컬럼 이름 줄을 바꿔서 에러 남!
-  pno FROM emp;
 
 SELECT * FROM tab ;
 
@@ -88,10 +80,34 @@ SELECT ename || '-' || job FROM emp;
 SELECT ename||'''s job is '||  job "NAME AND JOB"
   FROM emp;
 
--- 연습문제
--- student 테이블에서 모든 학생의 이름과 ID, 체중을 아래 화면과 같이 출력하세요. 컬럼 이름은 "ID AND WEIGHT"로 나오게 하세요.
-SELECT *
-  FROM student;
+-- 7. 원하는 조건만 골라내기 - WHERE 절 사용
+SELECT empno, ename 
+  FROM emp 
+  WHERE empno=7900;
 
-SELECT name ||'''s ID: '|| ID || ,IS ''kg || WEIGHT  "ID AND WEIGHT"
-  FROM student;
+SELECT ename, sal 
+  FROM emp 
+  WHERE sal < 900;
+
+SELECT empno, ename, sal
+  FROM emp 
+ WHERE ename='SMITH';
+
+SELECT ename, hiredate
+  FROM emp 
+ WHERE ename = 'SMITH';
+
+SELECT empno, ename, sal
+  FROM emp 
+ WHERE hiredate = '80/12/17';
+
+-- 8. SQL에서 산술 연산자 사용하기
+SELECT ename, sal 
+  FROM emp
+ WHERE deptno = 10;
+
+SELECT ename, sal, sal+100
+  FROM emp 
+ WHERE deptno = 10;
+
+SELECT ename, sal, sal
