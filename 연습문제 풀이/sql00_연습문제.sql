@@ -15,7 +15,7 @@ SELECT ename || ' ''s sal is $' || sal  "NAME AND Sal"
 -- p. 79 
 -- SUBSTR/INSTR 퀴즈
 -- Student 테이블을 참조하여 아래 화면과 같이 1전공이(deptno1 컬럼) 201번인 학생의 이름과 전화번호와 지역번호을 출력하세요. 단, 지역번호는 숫자만 나와야 합니다. 
-SELECT name, tel,substr(tel, '1') "AREA CODE" 
+SELECT name, tel, substr(tel, '1') "AREA CODE" 
   FROM student
  WHERE deptno1 = 201;
 
