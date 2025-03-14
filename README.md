@@ -148,17 +148,31 @@ Java 개발자 과정 Database 리포지토리
         ```
     - DROP - 개체 삭제시 사용하는 키워드
         ```sql
-        DROP TABLE 테이블명 purge; -- purge - 휴지통통
+        DROP TABLE 테이블명 purge; -- purge - 휴지통
         ```
     - TRUNCATE - 테이블 완전 초기화 키워드
         ```sql
         TRUNCATE TABLE 테이블명;
         ```
 ## 4일차
+- VS Code DB플러그인
+    - 확장 > Database 검색 > Database Client(Weijan Chen) > 확장중 Database 선택
+
+    <img src= "./image/db002.png" width="700">
 - DML
-    - INSERT
+    - INSERT - 테이블에 새로운 데이터를 삽입하는 명령
+        - 한 건씩 삽입
+        ```sql
+        INSERT INTO 테이블명 [(컬럼리스트)]
+        VALUE (값리스트);
+        ```
+        - 여러건 한꺼번에 삽입
     - UPDATE
-    - DELETE
+    - DELETE - 데이터 삭제. WHERE 조건 없이 실행하면 테이블 모든 데이터가 삭제됨(주의요망!)
+        ```sql
+        DELETE FROM 테이블명
+        [WHERE 조건];
+        ```
 - 제약조건
 - INDEX
 - VIEW
