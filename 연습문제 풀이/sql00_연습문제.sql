@@ -21,3 +21,16 @@ SELECT name, tel, substr(tel, '1') "AREA CODE"
 
 SELECT * 
   FROM student;
+
+--p.81
+-- LPAD 퀴즈
+-- emp 테이블을 사용하여 아래 화면과 같이 deptno가 10번인 사원들의 사원이름을 총 9바이트로 출력하되 빈자리에는 해당 자리의 숫자로 채우세요.
+SELECT LPAD(ename, 9, substr('123456789', LENGTH(ename)+1, 9)) "LPAD" 
+  FROM emp
+ WHERE deptno = '10'; 
+
+-- p.82
+-- RPAD 퀴즈 
+-- 아래 화면과 같이 emp 테이블에서 deptno가 10번인 사원들의 사원이름을 총 9자리로 출력하되 오른쪽 빈자리에는 해당 자릿수에 해당되는 숫자가 출력되도록 하세요.
+SELECT RPAD
+  FROM emp;
