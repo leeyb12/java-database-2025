@@ -239,7 +239,7 @@ Java 개발자 과정 Database 리포지토리
 - VIEW : [뷰쿼리](./Day05/sql01_뷰.sql)
      - 기존 테이블에서 권한별로 보일수 있는 컬럼을 지정해서 만드는 개체(보안목적)
      - 기존 테이블 중 개인정보나 중요한 부분이 있으면 제외하고 보일 수 있음
-     - 뷰이라도 INSERT, UPDATE, DELETE가 가능함. 단일뷰에서만 
+     - 뷰이라도 INSERT, UPDATE, DELETE가 가능함. 단일뷰가 가능
 
          ```sql
          CREATE VIEW 뷰명
@@ -247,16 +247,17 @@ Java 개발자 과정 Database 리포지토리
              SELECT 쿼리;
         [WITH READ ONLY]
          ``` 
-    - 복합뷰는 두개이상의 테이블을 조인해서 만든 뷰
+    - 복합뷰는 두개이상의 테이블을 조인해서 만든 뷰. DML기능 불가
          
-- 서브쿼리
+- 서브쿼리: [서브쿼리](./Day05/sql02_서브쿼리.sql)
     - 메인쿼리를 도와주는 하위쿼리 뜻함. 소괄호() 내에 포함됨
     - 단일행 서브쿼리, 다중행 서브쿼리마다 사용법 다름
     - SELECT절 서브쿼리, FROM절 서브쿼리, WHERE절 서브쿼리
-    - WHERE절 서브쿼리는 JOIN으로 변경가능  
-- 시퀀스
+    - 서브쿼리는 JOIN으로 거의다 변경가능(안되는 경우도 있음)  
+- 시퀀스: [시퀀스쿼리](./Day05/sql03_시퀀스.sql)
     - 번호로 지정된 PK값을 자동으로 삽입할 수 있도록 도와주는 기능
     - 없어도 기능에는 차이가 없지만 효율을 위해서 사용
+    - Oracle만 존재. 타 DB보다 자동증가값 사용 불편
 
         ```sql
         CREATE SEQUENCE 시퀀스명
@@ -265,7 +266,96 @@ Java 개발자 과정 Database 리포지토리
         [MAXVALUE 999999] --최대증가값
         [CYCLE] -- 최대증가값에 도달하면 다시 처음1로 돌아갈 것인지
         [CACHE] -- 번호증가 캐쉬(대용량 삽입시만 관계) 
+
+        시퀀스명.nextval
+        시퀀스명.currval
         ```
 
-## 6일차 
-## 7일차
+- 사용자 계정 권한: [쿼리](./Day05/sql04_사용자계정관리.sql)
+    - 사용자 생성 후 권한(룰)을 부여해야 스키마를 사용가능
+
+        ```sql
+        -- 권한 부여
+        GRANT 권한|룰 TO 사용자 [WITH ADMIN|GRANT OPTION]
+        -- 권한 해제
+        REVOKE 권한|룰 FROM 사용자;
+        ```
+## 6일차
+- PL/SQL - ORACLE에서 파이썬처럼 코딩
+    - 오라클에서 프로그래밍을 하기위한 언어
+    - 기본구조
+        - 선언부(DECLARE), 실행부(BEGIN~END), 예외처리부(EXCEPTION) 구성
+    - Oracle 스키마 중 Packages, Procedures, Functions 이 PL/SQL로 작업하는 영역
+        - 저장된(Stored) PL/SQL
+    - 결과화면에 출력하려면 명령어를 실행하고 PL/SQL을 수행해야 함
+        ```sql
+        SET SERVEROUTPUT ON; -- 화면 출력기능 활성화
+        SHOW ERRORS; -- 오류 상세내용 보기
+        ```
+
+- Stored Procedure와 Function를 만들기위해서 사용
+    - 저장프로시저
+        - 한꺼번에 많은 일을 수행해야할 때(Transaction당 수행되는 로직들 묶어서)
+        - 예) 한번에 5개의 테이블에서 조회와 DML을 처리해야한다
+            - 쿼리를 최소 10개를 수행해야 함
+            - 프로시저 한번만 수행해서 해결할 수 있음
+        - 중대형 IT솔루션에서는 프로시저가 거의 필수
+
+        ```sql
+        CREATE OR REPLACE PROCEDURE 프로시저명
+        (
+            param1  datatype,
+            param2  datatype,
+            ...
+        )
+        IS | AS
+        PL/SQL Block;
+        /        
+        ```
+
+        - 실행시 EXEC 사용
+        ```sql
+        CALL 프로시저명(파라미터);
+        EXEC 프로시저명(파리미터); -- DBeaver에서 사용불가
+        ```
+    - 함수
+        - 스칼라값을 리턴할 때 - Select절 서브쿼리와 기능이 동일
+        - 개발자에게 편의성을 제공하기 위해서 만듬
+
+        ```sql
+        CREATE OR REPLACE FUNCTION 함수명
+        (
+            param1  datatype,
+            ...
+        )
+        RETURN datatype
+        IS | AS
+        PL/SQL Block
+        ```
+
+        - 실행시 select문등 DML문과 같이 사용
+        ```sql
+        SELECT *, 함수명(파라미터) 
+          FROM 컬럼명; 
+        ```
+    - 커서
+        - DB에서 테이블에 들어있는 데이터를 한줄씩 읽기 위해서 필요
+
+        ```sql
+        CURSOR 커서명 IS
+            select쿼리;            
+        ```
+
+    - 트리거
+        - 특정 동작으로 다른 테이블에 자동으로 데이터가 변경되는 기능
+        - 한가지 동작에 대해서 연쇄적으로 다른일 발생
+
+        ```sql
+        CREATE OR REPLACE TRIGGER 트리거명
+        BEFORE|AFTER INSERT|UPDATE|DELETE ON 테이블{뷰}이름
+        BEGIN
+            PL/SQL쿼리
+        END;
+
+        ```
+## 7일차 
