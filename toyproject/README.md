@@ -19,7 +19,6 @@ Python GUI - Oracle연동 프로그램
         - Kivy처럼 멀티플랫폼 GUI 프레임워크
         - 무지 어려움 
 
-
 ### PyOt5 GUI 사용
 - PyQt5 설치
     - 콘솔 pip install PyQt5
@@ -42,7 +41,6 @@ Python GUI - Oracle연동 프로그램
 
 #### Oracle연동 GUI개발 시작
 - 오라클 Python연동 DB(스키마) 생성
-
     ```sql
     -- sys(sysdba)로 작업
     -- madang 스키마, 사용자 생성
@@ -84,7 +82,15 @@ Python GUI - Oracle연동 프로그램
     - 오라클 모듈
         - Oracledb - Oracle 최신버전에 매칭
         - **cx_Oracle** - 구버전까지 잘 됨
-    - 콘솔에서 `>pip install cx_Oracle`
+    
     - [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/ko/visual-cpp-build-tools/) 필요
+        - Visual Studio Installer 실행
+        - 개별 구성요소
+            - [x] MSVC v1XX - VS 20XX C++ x64/x86 빌드도구
+            - [x] C++ CMake Tools for Window
+            - [x] Windows 10 SDK(10.0.xxxxx)
+        - 설치
+    - 콘솔에서 `>pip install cx_Oracle`
+
 - QtDesigner로 화면 구성
 - PyQt로 Oracle 연동 CRUD 구현 

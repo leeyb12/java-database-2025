@@ -55,5 +55,3 @@ SELECT empno, ename, to_char(hiredate, 'YY-MM-DD') "hiredate"
 SELECT empno, ename, to_char(hiredate, 'YY/MM/DD') "hiredate"
   FROM emp 
  WHERE to_char(hiredate,'MM') in ('01','02','03');
-
--- emp 테이블을 조회하여 comm값을 가지고 있는 사람들의 empno, ename, hiredate, 총 연봉, 
