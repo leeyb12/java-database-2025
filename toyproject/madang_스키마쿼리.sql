@@ -20,6 +20,8 @@ CREATE SEQUENCE SEQ_STUDENT
     INCREMENT BY 1      -- 숫자를 1씩 증가
     START WITH 1;       -- 1부터 숫자가 증가됨
     
-    
+COMMIT;
 -- 사용자 madang으로 변경
- 
+
+INSERT INTO MADANG.STUDENTS (std_id, std_name, std_mobile, std_regyear)
+VALUES(SEQ_STUDENT.NEXTVAL, :v_std_name, :v_std_mobile, :v_std_regyear);

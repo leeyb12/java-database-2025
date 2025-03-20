@@ -16,6 +16,11 @@
     <height>600</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>D2Coding</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -125,7 +130,7 @@
              <item>
               <widget class="QLabel" name="label_3">
                <property name="text">
-                <string>핸드폰    </string>
+                <string>핸드폰   </string>
                </property>
               </widget>
              </item>
@@ -181,7 +186,7 @@
             <number>7</number>
            </property>
            <item>
-            <widget class="QPushButton" name="btn_insert">
+            <widget class="QPushButton" name="btn_add">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -194,7 +199,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_modify">
+            <widget class="QPushButton" name="btn_mod">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -207,7 +212,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_delete">
+            <widget class="QPushButton" name="btn_del">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -228,7 +233,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QTableWidget" name="tableWidget">
+        <widget class="QTableWidget" name="tblStudent">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
