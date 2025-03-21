@@ -144,4 +144,6 @@ SELECT empno, ename, sal, comm, NVL2(comm, sal+comm, sal*0) "NVL2"
 SELECT empno, ename, comm, NVL2(comm, Exist, NULL) "NVL2"
   FROM emp 
  WHERE deptno = 30;
+
+
                                                    
