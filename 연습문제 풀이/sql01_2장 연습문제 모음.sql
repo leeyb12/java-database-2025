@@ -146,4 +146,118 @@ SELECT empno, ename, comm, NVL2(comm, Exist, NULL) "NVL2"
  WHERE deptno = 30;
 
 
-                                                   
+-- p.114
+-- 유형1 - A가 B일 경우 '1'을 출력하는 경우
+-- 유형1 예제: professor 테이블에서 학과번호와 교수명, 학과명을 출력하되 deptno가 101번인 교수만 학과명을 "Computer Engineering"으로 출력하고 101번이 아닌 교수들은 학과명에 아무것도 출력하지 마세요.
+SELECT deptno, name, decode(deptno, 101, 'Computer Engineering') "DNAME"
+  FROM professor;
+
+
+-- p.115
+-- 유형2 - A가 B일 경우 '1'을 출력하고 아닐 경우 '2'을 출력하는 경우
+-- 유형2 예제: professor 테이블에서 학과번호와 교수명과 학과명을 출력하되 deptno가 101번인 교수만 "Computer Engineering"으로 출력하고 101번이 아닌 교수들은 학과명에 "ETC"로 출력하세요.
+SELECT deptno, name, decode(deptno, 101, 'Computer Engineering', 'ETC') "DNAME"
+  FROM professor;
+
+
+-- p.116 
+-- 유형3 - A가 B일 경우 '1'을 출력하고 A가 C일 경우 '2'을 출력하고 둘 다 아닐 경우 '3'을 출력하는 경우 
+-- 유형3 예제: Professor 테이블에서 교수의 이름과 학과명을 출력하되 학과 번호가 101번 이면 'Computer Enginerring', 102번이면 'Multimedia Engineering', 103번이면 'Software Engineering' 나머지는 'ETC'로 출력하세요.
+SELECT deptno, name, decode(deptno, 101, 'Computer Engineering'
+                                  , 102, 'Multimedia Engineering'
+                                  , 103, 'Software Engineering'
+                                       , 'ETC') "DNAME"
+  FROM professor;
+
+
+-- p.117 
+-- 유형4 - A가 B일 경우 중에서 C가 D를 만족하면 '1'을 출력하고 C가 D가 아닐 경우 NULL을 출력하는 경우(DECODE 함수 안에 DECODE 함수가 중첩되는 경우)
+-- 유형4 예제: professor 테이블에서 교수의 이름과 부서번호를 출력하고 101번 부서 중에서 이름이 "Audie Murphy" 교수에게 "BEST!"라고 출력하고 101번 부서 중에서 이름이 "Audie Murphy" 교수가 아닌 나머지에는 NULL값을 출력하세요. 만약 101번 외 다른 학과에 "Audie Murphy" 교수가 있어도 "BEST!"가 출력되면 안 됩니다. 
+SELECT deptno, name, decode(deptno, 101, decode(name, 'Audie Murphy', 'BEST!')) "ETC"
+  FROM professor;
+
+
+-- p.118
+-- 유형5 - A가 B일 경우 중에서 C가 D를 만족하면 '1'을 출력하고 C가 D가 아닐 경우 '2'를 출력하는 경우
+-- 유형5 예제: professor 테이블에서 교수의 이름과 부서번호를 출력하고 101번 부서 중에서 이름이 "Audie Murphy"교수에게 비고란에 "BEST!"라고 출력한 다음 101번 학과의 "Audie Murphy"교수 외에는 비고란에 "GOOD!"을 출력하고 101번 교수가 아닐 경우는 비고란이 공란이 되도록 출력하세요.
+SELECT deptno, name, decode(deptno, 101, DECODE(name, 'Audie Murphy', 'BEST!', 'GOOD!')) "ETC"
+  FROM professor;
+
+
+-- p.119
+-- 유형6 - professor테이블에서 교수의 이름과 부서번호를 출력하고 101번 부서 중에서 이름이 "Audie Murphy"교수에게 비고란에 "BEST!"라고 출력하고 101번 학과의 "Audie Murphy"교수 외에는 비고란에 "GOOD!"을 출력하며 101번 교수가 아닐 경우는 비고란에 "N/A"을 출력하세요.
+SELECT deptno, name, decode(deptno, 101, decode(name, 'Audie Murphy', 'BEST!', 'GOOD!'),'N/A') "ETC"
+  FROM professor;
+
+
+-- p.120
+-- decode 퀴즈 1
+-- Student 테이블을 사용하여 제1전공(deptno1)이 101번인 학과 학생들의 이름과 주민번호, 성별을 출력하되 성별은 주민번호(jumin) 컬럼을 이용하여 7번째 숫자가 1일 경우 "MAN", 2일 경우 "WOMAN"으로 출력하세요.
+SELECT name, jumin, decode(substr(jumin, 7,1), 1, 'MAN', 2, 'WOMAN') "Gender"
+  FROM student
+ WHERE deptno1 = 101;
+
+-- decode 퀴즈 2
+-- Student 테이블에서 1전공이(deptno1) 101번인 학생의 이름과 연락처와 지역을 출력하세요. 단, 지역번호가 02는 "SEOUL", 031은 "GYEONGGI", 051은 "BUSAN", 052는 "ULSAN", 055은 "GYEONGNAM"입니다. 
+SELECT name, tel, decode(substr(tel, 1, 3), '02)', 'SEOUL'
+                                          , '031', 'GYEONGGI'
+                                          , '051', 'BUSAN'
+                                          , '052', 'ULSAN'
+                                          , '055', 'GYEONGNAM') "LOC"
+  FROM STUDENt
+ WHERE deptno1 = 101;
+
+
+-- p.121
+-- DECODE와 동일하게 '='조건으로 사용되는 경우
+-- Student 테이블을 참조하여 deptno1이 201번인 학생의 이름과 전화번호, 지역명을 출력하세요. 단, 지역번호가 02면 "SEOUL", 031이면 "GYEONGGI", 051이면 "BUSAN", 052이면 "ULSAN", 055이면 'GYEONGNAM', 나머지는 "ETC"로 표시하세요.
+SELECT name, tel, CASE(substr(tel, 1, instr(tel, ')')-1)) WHEN '02' THEN 'SEOUL'
+                                                          WHEN '031' THEN 'GYEONGGI'
+                                                          WHEN '051' THEN 'BUSAN'
+                                                          WHEN '052' THEN 'ULSAN'
+                                                          WHEN '055' THEN 'GYEONGNAM'
+                                                                     ELSE 'ETC'
+                                                                     END "LOC"
+  FROM Student 
+ WHERE deptno1 = 201;
+
+
+-- p.122
+-- 비교 조건이 '='가 아닌 경우
+-- Student 테이블의 jumin 컬럼을 참조하여 학생들의 이름과 태어난 달, 그리고 분기를 출력하세요. 태어난 달이 01-03월은 1/4, 04-06월은 2/4, 07-09월은 3/4, 10-12월은 4/4로 출력하세요.
+SELECT name, substr(jumin,3,2)  "MONTH",
+	   CASE WHEN substr(jumin,3,2) BETWEEN '01' AND '03' THEN '1/4'
+	        WHEN substr(jumin,3,2) BETWEEN '04' AND '06' THEN '2/4'
+	        WHEN substr(jumin,3,2) BETWEEN '07' AND '09' THEN '3/4'
+	        WHEN substr(jumin,3,2) BETWEEN '10' AND '12' THEN '4/4'
+       END "Quarter"
+  FROM student;
+
+
+-- p.123
+-- CASE문 퀴즈
+-- emp 테이블을 조회하여 empno, ename, sal, LEVEL(급여등급)을 아래와 같이 출력하세요. 단, 급여등급은 sal을 기준으로 1-1000이면 Level 1, 1001-2000이면 Level 2, 2001-3000이면 Level 3, 3001-4000이면 Level 4, 4001보다 많으면 Level 5로 출력하세요.
+SELECT empno, ename, sal,
+       CASE WHEN sal BETWEEN '1' AND '1000' THEN 'Level 1'
+            WHEN sal BETWEEN '1001' AND '2000' THEN 'Level 2'
+            WHEN sal BETWEEN '2001' AND '3000' THEN 'Level 3'
+            WHEN sal BETWEEN '3001' AND '4000' THEN 'Level 4'
+            WHEN sal > 4001 THEN 'Level 5'
+       END "LEVEL"
+  FROM emp 
+ ORDER BY sal DESC;
+
+
+-- p.147
+-- 사용 예1 
+-- 교수테이블(professor)에서 홈페이지(hpage) 주소가 있는 교수들만 조사해서 아래의 화면처럼 나오게 출력하세요.
+SELECT name, LTRIM(REGEXP_SUBSTR(hpage,'/([[:alnum:]]+\.?){3,4}?'),'/') "URL"
+  FROM professor 
+ WHERE hpage IS NOT NULL;
+
+-- p.148
+-- 사용 예2
+-- Professor 테이블에서 101번 학과와 201번 학과 교수들의 이름과 메일 주소의 도메인 주소를 출력하세요. 단, 메일 주소는 @뒤에 있는 주소만 출력하세요. 
+SELECT name, LTRIM(REGEXP_SUBSTR(email, '@([[:alnum:]]+\.?){3,4}?'),'@') DOMAIN
+  FROM professor 
+ WHERE deptno IN (101,201);
