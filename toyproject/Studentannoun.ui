@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>771</width>
+      <height>531</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>공지사항</string>
+       </property>
+       <widget class="QPushButton" name="btn_add">
+        <property name="geometry">
+         <rect>
+          <x>674</x>
+          <y>30</y>
+          <width>91</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>등록</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_del">
+        <property name="geometry">
+         <rect>
+          <x>680</x>
+          <y>490</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>삭제</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="input_write">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>651</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>글을 작성해주세요.</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_mod">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>490</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>수정</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="announment">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>60</y>
+          <width>751</width>
+          <height>421</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
