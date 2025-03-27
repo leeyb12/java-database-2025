@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.btn_del.clicked.connect(self.btnDelClick)
         self.btn_end.clicked.connect(self.btnEndClick)
     
-        self.tb_student.doubleClicked.connect(self.tb_studentDoubleClick)
+        self.tblstudent.doubleClicked.connect(self.tblstudentDoubleClick)
         self.show()
     
     def clearInput(self):
@@ -135,7 +135,7 @@ class MainWindow(QMainWindow):
     def initUI(self):
         uic.loadUi('./toyproject/mypage.ui', self)
         self.setWindowTitle('마이페이지') 
-        
+
     def btnSrhClick(self):
         std_name = self.input_std_name.text()
         std_id = self.input_std_id.text()
