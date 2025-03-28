@@ -124,7 +124,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="std_name">
+        <widget class="QLineEdit" name="lineEdit_10">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -148,7 +148,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="std_id">
+        <widget class="QLineEdit" name="lineEdit_2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -172,7 +172,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="std_pwd">
+        <widget class="QLineEdit" name="lineEdit_3">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -196,7 +196,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="std_year">
+        <widget class="QComboBox" name="ComboBox_1">
          <item>
           <property name="text">
            <string/>
@@ -455,7 +455,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="std_month">
+        <widget class="QComboBox" name="ComboBox_2">
          <item>
           <property name="text">
            <string/>
@@ -534,7 +534,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="std_day">
+        <widget class="QComboBox" name="ComboBox_3">
          <item>
           <property name="text">
            <string/>
@@ -722,7 +722,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="std_mobile">
+        <widget class="QLineEdit" name="lineEdit_5">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -746,7 +746,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="std_addr">
+        <widget class="QLineEdit" name="lineEdit_6">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -873,7 +873,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="std_noi">
+        <widget class="QLineEdit" name="lineEdit_4">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -897,21 +897,21 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
-      <widget class="QPushButton" name="btn_add">
+      <widget class="QPushButton" name="pushButton_8">
        <property name="text">
         <string>입력</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_mod">
+      <widget class="QPushButton" name="pushButton_7">
        <property name="text">
         <string>수정</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_del">
+      <widget class="QPushButton" name="pushButton_6">
        <property name="text">
         <string>삭제</string>
        </property>
@@ -972,14 +972,14 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="btn_search">
+      <widget class="QPushButton" name="pushButton_2">
        <property name="text">
         <string>검색</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_all">
+      <widget class="QPushButton" name="pushButton_3">
        <property name="text">
         <string>전체보기</string>
        </property>
@@ -988,7 +988,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QTableWidget" name="btnstudent">
+  <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
      <x>615</x>
@@ -1029,7 +1029,7 @@
    </column>
    <column>
     <property name="text">
-     <string>반</string>
+     <string>New Column</string>
     </property>
    </column>
    <column>
