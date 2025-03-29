@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
+from PyQt5.QtGui import *
+from PyQt5 import QtWidgets, QtGui, uic
 import cx_Oracle as oci
 
 # 데이터베이스 연결 정보
@@ -18,6 +19,7 @@ class MypageWindow(QDialog):
     def initUI(self):
         uic.loadUi('./teamproject/마이페이지.ui', self)
         self.setWindowTitle('마이페이지')
+        self.setWindowIcon(QIcon('./image/graduatehat.png'))
 
         # 테이블 위젯이 UI에 존재하는지 확인
         if not hasattr(self, 'btlstudent'):
