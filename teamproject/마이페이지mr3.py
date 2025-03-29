@@ -27,9 +27,11 @@ class MypageWindow(QDialog):
         # 버튼 이벤트 연결
         self.btn_search.clicked.connect(self.btnSearchClick)
         self.btn_insert.clicked.connect(self.btnInsertClick)
-        self.btn_update.clicked.connect(self.btnUpdateClick)
+        self.btn_update.clicked.connect(self.updateStudentInfo)
         self.btn_delete.clicked.connect(self.btnDeleteClick)
         self.btn_show_all.clicked.connect(self.loadData)
+        self.btlstudent.cellDoubleClicked.connect(self.showStudentDetails)
+        
 
         # 데이터 불러오기
         self.loadData()
@@ -143,26 +145,37 @@ class MypageWindow(QDialog):
             cursor.close()
             connection.close()
 
-    def btnUpdateClick(self):
+    def updateStudentInfo(self):
         """학생 정보 수정"""
-        selected_row = self.btlstudent.currentRow()
-        if selected_row == -1:
-            QMessageBox.warning(self, "수정 오류", "수정할 학생을 선택하세요.")
-            return
+        std_id = self.std_id.text().strip()  # ID (변경 불가)
+        name = self.std_name.text().strip()
+        pwd = self.std_pwd.text().strip()
+        birth = f"{self.cmb_year.currentText()}-{self.cmb_month.currentText()}-{self.cmb_day.currentText()}"
+        tel = self.std_tel.text().strip()
+        addr = self.std_addr.text().strip()
+        class_no = self.cmb_class.currentText()
+        s_no = self.std_number.text().strip()
 
-        std_id = self.btlstudent.item(selected_row, 1).text()
-        new_tel = self.std_tel.text().strip()
-        new_addr = self.std_addr.text().strip()
+        if not (name and pwd and tel and addr and class_no and s_no):
+            QMessageBox.warning(self, "입력 오류", "모든 필드를 입력하세요.")
+            return
 
         try:
             connection = oci.connect(username, password, f"{host}:{port}/{sid}")
             cursor = connection.cursor()
 
-            query = """UPDATE student SET s_tel = :new_tel, s_addr = :new_addr WHERE s_id = :std_id"""
-            cursor.execute(query, {"new_tel": new_tel, "new_addr": new_addr, "std_id": std_id})
+            query = """UPDATE student 
+                    SET s_name = :name, s_pw = :pwd, s_birth = TO_DATE(:birth, 'YYYY-MM-DD'), 
+                        s_tel = :tel, s_addr = :addr, class_no = :class_no, s_no = :s_no
+                    WHERE s_id = :std_id"""
+            cursor.execute(query, {
+                "name": name, "pwd": pwd, "birth": birth, "tel": tel, 
+                "addr": addr, "class_no": class_no, "s_no": s_no, "std_id": std_id
+            })
             connection.commit()
+
             QMessageBox.information(self, "수정 성공", "학생 정보가 수정되었습니다.")
-            self.loadData()
+            self.loadData()  # 테이블 새로고침
 
         except oci.DatabaseError as e:
             QMessageBox.critical(self, "DB 오류", f"오류 내용: {str(e)}")
@@ -189,6 +202,50 @@ class MypageWindow(QDialog):
             connection.commit()
             QMessageBox.information(self, "삭제 성공", "학생 정보가 삭제되었습니다.")
             self.loadData()
+
+        except oci.DatabaseError as e:
+            QMessageBox.critical(self, "DB 오류", f"오류 내용: {str(e)}")
+
+        finally:
+            cursor.close()
+            connection.close()
+
+    def showStudentDetails(self, row):
+        """학생 이름을 더블클릭하면 정보 로드"""
+        std_id = self.btlstudent.item(row, 1).text()  # 학생 ID 가져오기
+        
+        try:
+            connection = oci.connect(username, password, f"{host}:{port}/{sid}")
+            cursor = connection.cursor()
+
+            query = """SELECT s_name, s_id, s_pw, 
+                            TO_CHAR(s_birth, 'YYYY-MM-DD') AS s_birth, 
+                            s_tel, s_addr, class_no, s_no 
+                    FROM student
+                    WHERE s_id = :std_id"""
+            cursor.execute(query, {"std_id": std_id})
+            student_data = cursor.fetchone()
+
+            if student_data:
+            # UI 필드에 데이터 채우기
+                self.std_name.setText(student_data[0])  # 이름
+                self.std_id.setText(student_data[1]) # id
+                self.std_id.setDisabled(False) 
+                self.std_pwd.setText(student_data[2])  # 비밀번호
+                birth_date = student_data[3].split('-')
+                self.cmb_year.setCurrentText(birth_date[0])  # 년도
+                self.cmb_month.setCurrentText(birth_date[1])  # 월
+                self.cmb_day.setCurrentText(birth_date[2])  # 일
+                self.std_tel.setText(student_data[4])  # 전화번호
+                self.std_addr.setText(student_data[5])  # 주소
+                self.cmb_class.setCurrentText(str(student_data[6]))  # 반
+                self.std_number.setText(str(student_data[7]))  # 번호
+
+                # 수정 버튼 활성화
+                self.btn_update.setEnabled(True)
+
+            else:
+             QMessageBox.warning(self, "조회 오류", "학생 정보를 찾을 수 없습니다.")
 
         except oci.DatabaseError as e:
             QMessageBox.critical(self, "DB 오류", f"오류 내용: {str(e)}")
