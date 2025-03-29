@@ -12,7 +12,7 @@ username = 'attendance'
 password = '12345'  
 basic_msg = 'OO고등학교 출결관리앱 v1.0'
 
-class MypageWindow(QDialog):
+class MainWindow(QDialog):
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -21,34 +21,31 @@ class MypageWindow(QDialog):
         uic.loadUi('./teamproject/마이페이지.ui', self)
         self.setWindowTitle('마이페이지')
 
-        self.btn_add.clicked.connect(self.btnAddClick) 
-        self.btn_mod.clicked.connect(self.btnModClick)
-        self.btn_del.clicked.connect(self.btnDelClick)
-        self.btn_search.clicked.connect(self.btnSrhClick)
-        self.btn_all.clicked.connect(self.btnAllClick)
+        self.btlstudent = QTableWidget()
+    
 
-    def tbllstudentDoubleClick(self):
-        selected = self.tblstudent.currentRow()
-        std_name = self.tblstudent.item(selected, 0).text()
-        std_id = self.tblstudent.item(selected, 1).text()
-        std_pwd = self.tblstudent.item(selected, 2).text()
-        std_mobile = self.tblstudent.item(selected, 3).text()
-        std_addr = self.tblstudent.item(selected, 4).text()
-        std_no = self.tblstudent.item(selected, 5).text()
         
-        self.std_name.setText(std_name)
-        self.std_id.setText(std_id)
-        self.std_pwd.setText(std_pwd)
-        self.std_mobile.setText(std_mobile)
-        self.std_addr.setText(std_addr)
-        self.std_no.setText(std_no)
 
-    def 
 
+    def loadData(self):
+        connection = oci.connect(username, password, f"{host}:{port}/{sid}")
+        cursor = connection.cursor()
+        query = '''SELECT s.*,s.ROWID FROM ATTENDANCE.STUDENT s'''
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+        self.btnstudent.setRowCount(len(data))
+        self.btnstudent.setColumnCount(len(data[0]))
+        self.btnstudent.setHorizontalHeaderLabels(["이름", "ID", "PWD", "생년월일", "전화번호", "주소", "반", "학년", "번호"])
+        
+        for row_idx, row_data in enumerate(data):
+            for col_idx, col_data in enumerate(row_data):
+                self.btnstudent.setItem(row_idx, col_idx, QTableWidgetItem(str(col_data)))
+        
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = MypageWindow()
+    win = MainWindow()
     win.show()
     app.exec_()

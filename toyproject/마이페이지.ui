@@ -950,7 +950,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="std_search">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -988,7 +988,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QTableWidget" name="btnstudent">
+  <widget class="QTableWidget" name="btlstudent">
    <property name="geometry">
     <rect>
      <x>615</x>
