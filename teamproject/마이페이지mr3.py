@@ -1,14 +1,15 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import Qt 
 from PyQt5 import QtWidgets, QtGui, uic
 import cx_Oracle as oci
 
 # 데이터베이스 연결 정보
 sid = 'XE'  
-host = '210.119.14.71'  
+host = '210.119.14.71'
 port = 1521  
-username = 'attendance' 
+username = 'attendance'
 password = '12345'  
 
 class MypageWindow(QDialog):
@@ -19,14 +20,16 @@ class MypageWindow(QDialog):
     def initUI(self):
         uic.loadUi('./teamproject/마이페이지.ui', self)
         self.setWindowTitle('마이페이지')
-        self.setWindowIcon(QIcon('./image/graduatehat.png'))
+        self.setWindowIcon(QIcon('./image/students.png'))
 
         # 테이블 위젯이 UI에 존재하는지 확인
-        if not hasattr(self, 'btlstudent'):
+        self.btlstudent = self.findChild(QTableWidget, "btlstudent")
+        if self.btlstudent is None:
             QMessageBox.critical(self, "오류", "QTableWidget(btlstudent)이 UI에 없습니다.")
             return
 
         # 버튼 이벤트 연결
+        self.btn_upload.clicked.connect(self.uploadPhoto)
         self.btn_search.clicked.connect(self.btnSearchClick)
         self.btn_insert.clicked.connect(self.btnInsertClick)
         self.btn_update.clicked.connect(self.updateStudentInfo)
@@ -37,6 +40,16 @@ class MypageWindow(QDialog):
 
         # 데이터 불러오기
         self.loadData()
+        
+    def uploadPhoto(self):
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getOpenFileName(self, "사진 업로드", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif);;All Files (*)", options=options)
+
+        if file_path:
+            pixmap = QPixmap(file_path)
+            resized_pixmap = pixmap.scaled(300, 400, Qt.KeepAspectRatio, Qt.SmoothTransformation) 
+            self.photo_label.setPixmap(resized_pixmap)  # QLabel에 표시
+            self.photo_path = file_path
 
     def loadData(self):
         try:
@@ -244,7 +257,7 @@ class MypageWindow(QDialog):
                 self.std_number.setText(str(student_data[7]))  # 번호
 
                 # 수정 버튼 활성화
-                self.btn_update.setEnabled(True)
+                self.btn_update.setEnabled(False)
 
             else:
              QMessageBox.warning(self, "조회 오류", "학생 정보를 찾을 수 없습니다.")

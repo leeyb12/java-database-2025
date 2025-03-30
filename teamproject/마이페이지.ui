@@ -72,13 +72,13 @@
    <property name="title">
     <string>마이페이지</string>
    </property>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="photo_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>40</y>
-      <width>81</width>
-      <height>91</height>
+      <width>110</width>
+      <height>100</height>
      </rect>
     </property>
     <property name="text">
@@ -88,7 +88,7 @@
      <pixmap>../image/다운로드 (9).png</pixmap>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btn_upload">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -790,7 +790,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="std_grade">
+        <widget class="QComboBox" name="cmb_grade">
          <item>
           <property name="text">
            <string/>
