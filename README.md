@@ -1,5 +1,5 @@
 # java-database-2025
-Java 개발자 과정 Database 리포지토리 
+2025년 Java 개발자 과정 Database 리포지토리 
 
 ## 1일차 
 - Github Desktop 설치
